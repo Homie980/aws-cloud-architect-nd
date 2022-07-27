@@ -1,0 +1,90 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2578
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww22440\viewh15300\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0  __|  __|_  )\
+       _|  (     /   Amazon Linux 2 AMI\
+      ___|\\___|___|\
+\
+https://aws.amazon.com/amazon-linux-2/\
+12 package(s) needed for security, out of 22 available\
+Run "sudo yum update" to apply all updates.\
+[ec2-user@ip-164-1-10-213 ~]$ ll\
+total 0\
+[ec2-user@ip-164-1-10-213 ~]$ sudo yum install mysql\
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd\
+Resolving Dependencies\
+--> Running transaction check\
+---> Package mariadb.x86_64 1:5.5.68-1.amzn2 will be installed\
+--> Finished Dependency Resolution\
+\
+Dependencies Resolved\
+\
+==========================================================================================================================================================================================\
+ Package                                   Arch                                     Version                                            Repository                                    Size\
+==========================================================================================================================================================================================\
+Installing:\
+ mariadb                                   x86_64                                   1:5.5.68-1.amzn2                                   amzn2-core                                   8.8 M\
+\
+Transaction Summary\
+==========================================================================================================================================================================================\
+Install  1 Package\
+\
+Total download size: 8.8 M\
+Installed size: 49 M\
+Is this ok [y/d/N]: y\
+Downloading packages:\
+mariadb-5.5.68-1.amzn2.x86_64.rpm                                                                                                                                  | 8.8 MB  00:00:00     \
+Running transaction check\
+Running transaction test\
+Transaction test succeeded\
+Running transaction\
+  Installing : 1:mariadb-5.5.68-1.amzn2.x86_64                                                                                                                                        1/1 \
+  Verifying  : 1:mariadb-5.5.68-1.amzn2.x86_64                                                                                                                                        1/1 \
+\
+Installed:\
+  mariadb.x86_64 1:5.5.68-1.amzn2                                                                                                                                                         \
+\
+Complete!\
+[ec2-user@ip-164-1-10-213 ~]$ mysql\
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)\
+[ec2-user@ip-164-1-10-213 ~]$ mysql standbyinstance.cpmxvdy5amrv.us-west-2.rds.amazonaws.com -p\
+Enter password: \
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)\
+[ec2-user@ip-164-1-10-213 ~]$ mysql -h standbyinstance.cpmxvdy5amrv.us-west-2.rds.amazonaws.com -P 3306 -u admin -p\
+Enter password: \
+Welcome to the MariaDB monitor.  Commands end with ; or \\g.\
+Your MySQL connection id is 268\
+Server version: 8.0.28 Source distribution\
+\
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.\
+\
+Type 'help;' or '\\h' for help. Type '\\c' to clear the current input statement.\
+\
+MySQL [(none)]> use udacity\
+Reading table information for completion of table and column names\
+You can turn off this feature to get a quicker startup with -A\
+\
+Database changed\
+MySQL [udacity]> show tables;\
++-------------------+\
+| Tables_in_udacity |\
++-------------------+\
+| tut_udacity       |\
++-------------------+\
+1 row in set (0.01 sec)\
+\
+MySQL [udacity]> insert into tut_udacity (tutorial_title, tutorial_author, submission_date)\
+    -> values\
+    -> ("Learn aws", "John", NOW());\
+ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement\
+MySQL [udacity]> select * from tut_udacity;\
++-------------+----------------+-----------------+-----------------+\
+| tutorial_id | tutorial_title | tutorial_author | submission_date |\
++-------------+----------------+-----------------+-----------------+\
+|           1 | Learn C#       | Abood           | 2022-07-26      |\
++-------------+----------------+-----------------+-----------------+\
+1 row in set (0.00 sec)}

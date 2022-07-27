@@ -1,0 +1,25 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2578
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 .AppleSystemUIFontMonospaced-Regular;}
+{\colortbl;\red255\green255\blue255;\red27\green31\blue35;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c14118\c16078\c18431;\cssrgb\c100000\c100000\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww24680\viewh14760\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 1. Minimum RTO for a single AZ outage\
+	- In case of single AZ outage, minimum RTO would be to get updated DNS changes. In case of Multi-AZ deployment, standby instance is already running and data is 		  replicated synchronously. This ensures quick recovery.\
+\
+2. Minimum RTO for a single region outage\
+	- In this case, following factors will be considered:\
+		i) Time to bring read replica as a standalone primary instance: This typically takes 15-20 minutes.\
+		ii) Time to apply new DNS changes in application to connect to new end point. Depending upon application design this can take anywhere from 15-120 minutes. 		    If application is using centralized key/value management like Hashicorp Vault, change can be done only at one place.\
+\
+3. Minimum RPO for a single AZ outage\
+	- In Multi-AZ scenario, automatic backups are enabled. It means AWS will take full snapshot once a day.\
+	- Thus, minimum RPO for a single AZ is 5 minutes.\
+\
+4. Minimum RPO for a single region outage\
+	- In Multi-AZ, Multi-region mode, database is updated asynchronously between Primary and read replica.\
+	- During initial setup and installation time, it takes minimum 15-20 minutes for system to get ready.\
+	- Thus, minimum RPO for single region outage is around 15 minutes.}
